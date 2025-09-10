@@ -1,0 +1,53 @@
+networks:
+  theprepared:
+    external: true
+
+volumes:
+  postgres_data:
+  mariadb_data:
+
+services:  # PostgreSQL 데이터베이스 (변화 없음)
+  postgres_db:
+    image: postgres:16
+    container_name: postgres_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - theprepared
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: "pg_isready -U postgres"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # MariaDB 데이터베이스 (변화 없음)
+  mariadb_db:
+    image: mariadb:10.6
+    container_name: mariadb_db
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DB}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - theprepared
+    ports:
+      - "3306:3306"
+    
+  # Redis (변화 없음)
+  redis:
+    image: "redis:alpine"
+    container_name: redis
+    restart: unless-stopped
+    networks:
+      - theprepared
