@@ -21,11 +21,6 @@ services:  # PostgreSQL 데이터베이스 (변화 없음)
       - theprepared
     ports:
       - "5432:5432"
-    healthcheck:
-      test: "pg_isready -U ${POSTGRES_USER}"
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   # MariaDB 데이터베이스 (변화 없음)
   mariadb_db:
