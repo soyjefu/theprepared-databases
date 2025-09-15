@@ -22,7 +22,7 @@ services:  # PostgreSQL 데이터베이스 (변화 없음)
     ports:
       - "5432:5432"
     healthcheck:
-      test: "pg_isready -U postgres"
+      test: "pg_isready -U ${POSTGRES_USER}"
       interval: 10s
       timeout: 5s
       retries: 5
