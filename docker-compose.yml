@@ -15,9 +15,11 @@ services:  # PostgreSQL 데이터베이스 (변화 없음)
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      TZ: UTC
+      TZ: Asia/Seoul
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     networks:
       - theprepared
     ports:
@@ -33,9 +35,11 @@ services:  # PostgreSQL 데이터베이스 (변화 없음)
       MARIADB_DATABASE: ${MARIADB_DB}
       MARIADB_USER: ${MARIADB_USER}
       MARIADB_PASSWORD: ${MARIADB_PASSWORD}
-      TZ: UTC
+      TZ: Asia/Seoul
     volumes:
       - mariadb_data:/var/lib/mysql
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     networks:
       - theprepared
     ports:
@@ -47,6 +51,9 @@ services:  # PostgreSQL 데이터베이스 (변화 없음)
     container_name: redis
     restart: unless-stopped
     environment:
-      TZ: UTC
+      TZ: Asia/Seoul
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     networks:
       - theprepared
