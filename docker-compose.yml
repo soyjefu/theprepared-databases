@@ -18,8 +18,6 @@ services:  # PostgreSQL 데이터베이스 (변화 없음)
       TZ: Asia/Seoul
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
     networks:
       - theprepared
     ports:
